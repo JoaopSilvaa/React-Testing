@@ -26,18 +26,33 @@ test('Se é exibido um pokemon por vez', () => {
   expect(charmander).not.toBeInTheDocument();
 });
 
-test('Se a pokedex tem botões de filtro', () => {
-  const number = 9;
+test('Se o botão de filtro funciona', () => {
   renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
-  const buttons = screen.getAllByRole('button');
-  expect(buttons.length).toBe(number);
-  userEvent.click(buttons[1]);
-  const typePoke = screen.getAllByText('Electric');
-  expect(typePoke[0]).toContainHTML('Electric');
+  const button = screen.getByRole('button', { name: 'Fire' });
+  userEvent.click(button);
+  const typePoke = screen.getAllByText('Fire');
+  expect(typePoke[0].innerHTML).toBe(button.innerHTML);
+});
+
+test('Se a pokedex tem o botão de filtro', () => {
+  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  const buttons = screen.getAllByTestId('pokemon-type-button');
+  expect(buttons[0]).toBeInTheDocument();
 });
 
 test('Se a pokedex tem o botão all de resetar o filtro', () => {
   renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
   const buttonAll = screen.getByRole('button', { name: 'All' });
   expect(buttonAll).toBeInTheDocument();
+});
+
+test('Se o filtro all é selecionado ao carregar', () => {
+  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  const buttonNext = screen.getByRole('button', { name: 'Próximo pokémon' });
+  const buttonPoison = screen.getByRole('button', { name: 'Poison' });
+  userEvent.click(buttonPoison);
+  expect(buttonNext).toBeDisabled();
+  const buttonAll = screen.getByRole('button', { name: 'All' });
+  userEvent.click(buttonAll);
+  expect(buttonNext).not.toBeDisabled();
 });
