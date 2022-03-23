@@ -6,20 +6,59 @@ import pokemons from '../data';
 import renderWithRouter from './Helper';
 
 test('Se o componente contém um heading com o texto Encountered pokémons', () => {
-  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ { } } />);
+  renderWithRouter(<Pokedex
+    pokemons={ pokemons }
+    isPokemonFavoriteById={ {
+      4: false,
+      10: false,
+      23: false,
+      25: false,
+      65: false,
+      78: false,
+      143: false,
+      148: false,
+      151: false,
+    } }
+  />);
   const encoPoke = screen.getByRole('heading',
     { level: 2, name: 'Encountered pokémons' });
   expect(encoPoke).toBeInTheDocument();
 });
 
 test('Se é exibido o próximo pokemon da lista se clicar', () => {
-  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  renderWithRouter(<Pokedex
+    pokemons={ pokemons }
+    isPokemonFavoriteById={ {
+      4: false,
+      10: false,
+      23: false,
+      25: false,
+      65: false,
+      78: false,
+      143: false,
+      148: false,
+      151: false,
+    } }
+  />);
   const button = screen.getByRole('button', { name: 'Próximo pokémon' });
   userEvent.click(button);
   screen.getByText('Charmander');
 });
 test('Se é exibido um pokemon por vez', () => {
-  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  renderWithRouter(<Pokedex
+    pokemons={ pokemons }
+    isPokemonFavoriteById={ {
+      4: false,
+      10: false,
+      23: false,
+      25: false,
+      65: false,
+      78: false,
+      143: false,
+      148: false,
+      151: false,
+    } }
+  />);
   const pikachu = screen.getByText('Pikachu');
   const charmander = screen.queryByText('Charmander');
   expect(pikachu).toBeInTheDocument();
@@ -27,7 +66,20 @@ test('Se é exibido um pokemon por vez', () => {
 });
 
 test('Se o botão de filtro funciona', () => {
-  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  renderWithRouter(<Pokedex
+    pokemons={ pokemons }
+    isPokemonFavoriteById={ {
+      4: false,
+      10: false,
+      23: false,
+      25: false,
+      65: false,
+      78: false,
+      143: false,
+      148: false,
+      151: false,
+    } }
+  />);
   const button = screen.getByRole('button', { name: 'Fire' });
   userEvent.click(button);
   const typePoke = screen.getAllByText('Fire');
@@ -35,19 +87,58 @@ test('Se o botão de filtro funciona', () => {
 });
 
 test('Se a pokedex tem o botão de filtro', () => {
-  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  renderWithRouter(<Pokedex
+    pokemons={ pokemons }
+    isPokemonFavoriteById={ {
+      4: false,
+      10: false,
+      23: false,
+      25: false,
+      65: false,
+      78: false,
+      143: false,
+      148: false,
+      151: false,
+    } }
+  />);
   const buttons = screen.getAllByTestId('pokemon-type-button');
   expect(buttons[0]).toBeInTheDocument();
 });
 
 test('Se a pokedex tem o botão all de resetar o filtro', () => {
-  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  renderWithRouter(<Pokedex
+    pokemons={ pokemons }
+    isPokemonFavoriteById={ {
+      4: false,
+      10: false,
+      23: false,
+      25: false,
+      65: false,
+      78: false,
+      143: false,
+      148: false,
+      151: false,
+    } }
+  />);
   const buttonAll = screen.getByRole('button', { name: 'All' });
   expect(buttonAll).toBeInTheDocument();
 });
 
 test('Se o filtro all é selecionado ao carregar', () => {
-  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  renderWithRouter(<Pokedex
+    pokemons={ pokemons }
+    isPokemonFavoriteById={ {
+      4: false,
+      10: false,
+      23: false,
+      25: false,
+      65: false,
+      78: false,
+      143: false,
+      148: false,
+      151: false,
+    } }
+  />);
   const buttonNext = screen.getByRole('button', { name: 'Próximo pokémon' });
   const buttonPoison = screen.getByRole('button', { name: 'Poison' });
   userEvent.click(buttonPoison);
