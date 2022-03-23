@@ -6,7 +6,7 @@ import pokemons from '../data';
 import renderWithRouter from './Helper';
 
 test('Se o componente contém um heading com o texto Encountered pokémons', () => {
-  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
+  renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ { } } />);
   const encoPoke = screen.getByRole('heading',
     { level: 2, name: 'Encountered pokémons' });
   expect(encoPoke).toBeInTheDocument();
@@ -18,7 +18,6 @@ test('Se é exibido o próximo pokemon da lista se clicar', () => {
   userEvent.click(button);
   screen.getByText('Charmander');
 });
-
 test('Se é exibido um pokemon por vez', () => {
   renderWithRouter(<Pokedex pokemons={ pokemons } isPokemonFavoriteById={ {} } />);
   const pikachu = screen.getByText('Pikachu');
@@ -33,9 +32,8 @@ test('Se a pokedex tem botões de filtro', () => {
   const buttons = screen.getAllByRole('button');
   expect(buttons.length).toBe(number);
   userEvent.click(buttons[1]);
-  const typePoke = screen.getByTestId('pokemon-type');
-  const electric = screen.getByText(typePoke);
-  expect(electric).toContain('Electric');
+  const typePoke = screen.getAllByText('Electric');
+  expect(typePoke[0]).toContainHTML('Electric');
 });
 
 test('Se a pokedex tem o botão all de resetar o filtro', () => {
